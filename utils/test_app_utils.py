@@ -1,5 +1,5 @@
 import unittest
-from object_detector_app.utils.app_utils import color_name_to_rgb, standard_colors
+from utils.app_utils import color_name_to_rgb, standard_colors
 
 
 class TestUtils(unittest.TestCase):
