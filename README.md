@@ -3,30 +3,48 @@
 A real-time object recognition application using [Google's TensorFlow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) and [OpenCV](http://opencv.org/).
 
 ## Getting Started
-1. `conda env create -f environment.yml`
-2. `python object_detection_app.py` / `python object_detection_multithreading.py`
-    Optional arguments (default value):
-    * Device index of the camera `--source=0`
-    * Width of the frames in the video stream `--width=480`
-    * Height of the frames in the video stream `--height=360`
-    * Number of workers `--num-workers=2`
-    * Size of the queue `--queue-size=5`
-    * Get video from HLS stream rather than webcam '--stream-input=http://somertmpserver.com/hls/live.m3u8'
-    * Send stream to livestreaming server '--stream-output=--stream=http://somertmpserver.com/hls/live.m3u8'
+
+### Installation
+
+1. Install Python 3.8+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Usage
+
+Run the main application:
+```bash
+python main.py
+```
+
+Optional arguments:
+* `--source`: Device index of the camera (default: 0)
+* `--width`: Width of the frames in the video stream (default: 480)
+* `--height`: Height of the frames in the video stream (default: 360)
+* `--num-workers`: Number of workers (default: 2)
+* `--queue-size`: Size of the queue (default: 5)
+* `--stream-input`: Get video from HLS stream rather than webcam (e.g., `http://somertmpserver.com/hls/live.m3u8`)
+
+Example:
+```bash
+python main.py --source 0 --width 640 --height 480
+```
+
+## Structure
+
+* `main.py`: Main entry point.
+* `detector.py`: Object detection logic using TensorFlow.
+* `utils/`: Utility modules for streaming, FPS tracking, and visualization.
+* `object_detection/`: Legacy TensorFlow Object Detection API code.
 
 ## Tests
-```
-pytest -vs utils/
-```
 
-## Requirements
-- [Anaconda / Python 3.5](https://www.continuum.io/downloads)
-- [TensorFlow 1.2](https://www.tensorflow.org/)
-- [OpenCV 3.0](http://opencv.org/)
-
-## Notes
-- OpenCV 3.1 might crash on OSX after a while, so that's why I had to switch to version 3.0. See open issue and solution [here](https://github.com/opencv/opencv/issues/5874).
-- Moving the `.read()` part of the video stream in a multiple child processes did not work. However, it was possible to move it to a separate thread.
+Run tests with pytest:
+```bash
+pytest
+```
 
 ## Copyright
 
